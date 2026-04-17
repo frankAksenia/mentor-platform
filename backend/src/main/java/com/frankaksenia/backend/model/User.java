@@ -46,7 +46,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private ERole role;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

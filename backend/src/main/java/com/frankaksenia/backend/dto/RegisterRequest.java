@@ -1,6 +1,6 @@
 package com.frankaksenia.backend.dto;
 
-import com.frankaksenia.backend.model.Role;
+import com.frankaksenia.backend.model.ERole;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +29,6 @@ public record RegisterRequest(
     String password,
 
     @NotNull(message = "Role is required")
-    Role role
+    ERole role
 ) 
 {}

@@ -1,6 +1,6 @@
 package com.frankaksenia.backend.model;
 
-public enum Category {
+public enum ECategory {
     AI,
     CLOUD,
     DATA,

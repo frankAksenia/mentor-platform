@@ -25,7 +25,7 @@ public class Skill {
     private UUID id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private ECategory category;
     @ManyToMany(mappedBy = "skills")
     private Set<MentorProfile> mentorProfiles = new HashSet<>();
 }

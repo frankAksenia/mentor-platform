@@ -1,5 +1,7 @@
 package com.frankaksenia.backend.dto;
 
-public record LoginRequest() {
-
-}
+public record LoginRequest(
+    String username,
+    String password
+) 
+{}

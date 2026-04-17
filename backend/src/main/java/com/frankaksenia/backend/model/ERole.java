@@ -1,6 +1,6 @@
 package com.frankaksenia.backend.model;
 
-public enum Role {
+public enum ERole {
         STUDENT,
         MENTOR,
         ADMIN,
