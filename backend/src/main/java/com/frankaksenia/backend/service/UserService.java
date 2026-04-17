@@ -4,12 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.frankaksenia.backend.dto.AuthenticationResponse;
-import com.frankaksenia.backend.dto.RegisterRequest;
 import com.frankaksenia.backend.dto.UserResponse;
 import com.frankaksenia.backend.repository.UserRepository;
 
-import jakarta.validation.Valid;
 
 @Service
 public class UserService {
@@ -26,6 +23,7 @@ public class UserService {
                             user.getId(),
                             user.getFirstName(),
                             user.getLastName(),
+                            user.getUsername(),
                             user.getEmail(),
                             user.getRole().toString()
                     ))

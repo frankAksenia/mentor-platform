@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.frankaksenia.backend.dto.BookingCreateRequest;
@@ -78,7 +79,7 @@ public class BookingService {
     private User getCurrentUser(Authentication authentication) {
         String email = authentication.getName();
         System.out.println("Authenticated user email: " + email);
-        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User", "User not found"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 }
 

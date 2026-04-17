@@ -30,29 +30,43 @@ public class User {
     @Id
     @UuidGenerator
     private UUID id;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(unique = true)
+    private String username;
+
     @Column(unique = true)
     private String email;
+
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<Booking> studentBookings = new ArrayList<>();
+
     @OneToMany(mappedBy = "mentor")
     @JsonIgnore
     private List<Booking> mentorBookings = new ArrayList<>();
+
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private List<Review> writtenReviews = new ArrayList<>();
-     @OneToMany(mappedBy = "mentor")
+
+    @OneToMany(mappedBy = "mentor")
     @JsonIgnore
     private List<Review> receivedReviews = new ArrayList<>();
 }

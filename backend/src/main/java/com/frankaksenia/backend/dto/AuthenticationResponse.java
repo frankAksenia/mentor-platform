@@ -9,6 +9,7 @@ public record AuthenticationResponse(
     UUID userId,
     String firstName,
     String lastName,
+    String username,
     String email,
     Role role
 ) {
