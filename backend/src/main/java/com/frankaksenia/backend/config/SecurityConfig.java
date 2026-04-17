@@ -2,6 +2,7 @@ package com.frankaksenia.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +23,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
+	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
 		provider.setPasswordEncoder(passwordEncoder()); 
 		return provider;
@@ -36,6 +37,7 @@ public class SecurityConfig {
 			
 			// 2. Configure Authorization Rules (Order Matters!)
 			.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/api/register").permitAll()
 				.requestMatchers("/admin/**").hasRole("ADMIN")
 				.requestMatchers("/api/**").hasAnyRole("MENTOR", "STUDENT", "ADMIN")
 				.anyRequest().authenticated()

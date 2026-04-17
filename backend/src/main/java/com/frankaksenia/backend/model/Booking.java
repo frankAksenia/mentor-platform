@@ -24,24 +24,34 @@ public class Booking {
     @Id
     @UuidGenerator
     private UUID id;
+
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
+
     @ManyToOne
     @JoinColumn(name = "mentor_id", nullable = false)
     private User mentor;
+
     @Column(name = "start_time")
     private LocalDateTime startTime;
+
     @Column(name = "end_time")
     private LocalDateTime endTime;
+
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
+
     private String topic;
+
     private String message;
     @Column(name = "meeting_link")
+
     private String meetingLink;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

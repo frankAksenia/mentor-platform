@@ -1,5 +1,6 @@
 package com.frankaksenia.backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,8 +41,7 @@ public class BookingService {
 
     public List<Booking> getBookingsByStudentId(UUID studentId) {
         return bookingRepository.findByStudentId(studentId);
-    
-        }
+    }
 
     public List<Booking> getBookingsByMentorId(UUID mentorId) {
         return bookingRepository.findByMentorId(mentorId);
@@ -72,13 +72,15 @@ public class BookingService {
         booking.setTopic(request.topic());
         booking.setMessage(request.message());      
         booking.setMeetingLink(null);
+        booking.setCreatedAt(LocalDateTime.now());
 
-        return bookingResponseMapper.mapToBookingResponse(bookingRepository.save(booking));
+        Booking newBoooking = bookingRepository.save(booking);
+
+        return bookingResponseMapper.mapToBookingResponse(newBoooking);
     }
 
     private User getCurrentUser(Authentication authentication) {
         String email = authentication.getName();
-        System.out.println("Authenticated user email: " + email);
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 }
