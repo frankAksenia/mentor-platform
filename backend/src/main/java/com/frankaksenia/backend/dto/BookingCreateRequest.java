@@ -21,6 +21,7 @@ public record BookingCreateRequest(
 
     @Size(max = 200, message = "Topic must be at most 200 characters")
     String topic,
+    
     @Size(max = 2000, message = "Message must be at most 2000 characters")
     String message
 ) {}

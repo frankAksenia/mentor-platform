@@ -1,11 +1,9 @@
 package com.frankaksenia.backend.service;
 
-import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +39,16 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public List<Booking> getBookingsByStudentId(UUID studentId) {
-        return bookingRepository.findByStudentId(studentId);
+    public List<BookingResponse> getBookingsByStudentId(UUID studentId) {
+        return bookingRepository.findByStudentId(studentId).stream()
+        .map(booking -> bookingResponseMapper.mapToBookingResponse(booking))
+        .toList();
     }
 
-    public List<Booking> getBookingsByMentorId(UUID mentorId) {
-        return bookingRepository.findByMentorId(mentorId);
+    public List<BookingResponse> getBookingsByMentorId(UUID mentorId) {
+        return bookingRepository.findByMentorId(mentorId).stream()
+        .map(booking -> bookingResponseMapper.mapToBookingResponse(booking))
+        .toList();
     }
 
     public BookingResponse createBooking(BookingCreateRequest request) {

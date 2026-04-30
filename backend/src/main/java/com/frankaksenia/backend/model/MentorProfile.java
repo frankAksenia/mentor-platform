@@ -1,7 +1,6 @@
 package com.frankaksenia.backend.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,10 +13,12 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name="mentor_profile")
 public class MentorProfile {
@@ -30,10 +31,10 @@ public class MentorProfile {
     private String title;
     private String bio;
     @Column(name = "hourly_rate")
-    private double hourlyRate;
+    private Double hourlyRate;
     @Column(name = "years_of_experience")
-    private int yearOfExperience;
-    private List<String> languages;
+    private Integer yearsOfExperience;
+    private Set<String> languages;
     @Column(name = "is_active")
     private boolean isActive;
     @Column(name = "average_rating")
@@ -42,5 +43,4 @@ public class MentorProfile {
     private int reviewsCount;
     @ManyToMany
     private Set<Skill> skills = new HashSet<>();
-    
 }

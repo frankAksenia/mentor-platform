@@ -33,6 +33,7 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
+    // Endpoint to get all bookings (for testing purposes)
     @GetMapping("/bookings")
     @ResponseBody
     public List<Booking> getBookings() {
@@ -40,13 +41,15 @@ public class BookingController {
     }
 
     @GetMapping("/studentBookings")
-    public List<Booking> getBookingsByStudentId(@RequestParam UUID studentId) {
-        return bookingService.getBookingsByStudentId(studentId);
+    public ResponseEntity<List<BookingResponse>> getBookingsByStudentId(@RequestParam UUID studentId) {
+        List<BookingResponse> bookings = bookingService.getBookingsByStudentId(studentId);
+        return ResponseEntity.status(HttpStatus.OK).body(bookings); 
     }
 
     @GetMapping("/mentorBookings")
-    public List<Booking> getBookingsByMentorId(@RequestParam UUID mentorId) {
-        return bookingService.getBookingsByMentorId(mentorId);
+    public ResponseEntity<List<BookingResponse>> getBookingsByMentorId(@RequestParam UUID mentorId) {
+        List<BookingResponse> bookings = bookingService.getBookingsByMentorId(mentorId);
+        return ResponseEntity.status(HttpStatus.OK).body(bookings);
     }
     
     @PostMapping("/createBooking")

@@ -18,6 +18,4 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     boolean existsByMentorAndStatusAndStartTimeLessThanAndEndTimeGreaterThan(User mentor, BookingStatus status, LocalDateTime endTime, LocalDateTime startTime);
 
-
-
 }

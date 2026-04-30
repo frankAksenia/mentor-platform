@@ -44,7 +44,7 @@ public class AuthenticationController {
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager
             .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
-        return ResponseEntity.ok().body(jwtService.generateToken(authentication));
+        return ResponseEntity.status(HttpStatus.OK).body(jwtService.generateToken(authentication));
     }
     
     
