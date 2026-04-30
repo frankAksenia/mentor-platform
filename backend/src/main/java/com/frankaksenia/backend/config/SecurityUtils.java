@@ -9,7 +9,7 @@ import com.frankaksenia.backend.exceptions.UnauthorisedActionException;
 @Component
 public class SecurityUtils {
 
-    public static String getCurrentUserEmail() {
+    public static String getCurrentUserUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new UnauthorisedActionException("Unauthorised", "User is not authenticated");

@@ -49,10 +49,10 @@ public class BookingService {
         return bookingRepository.findByMentorId(mentorId);
     }
 
-    public BookingResponse createBooking(BookingCreateRequest request ) {
-    
+    public BookingResponse createBooking(BookingCreateRequest request) {
+
         User student = getCurrentUser();
-        
+
         User mentor = userRepository.findById(request.mentorId()).orElseThrow(() -> new ResourceNotFoundException("User", "Mentor not found"));
 
         if(mentor.getRole() != ERole.MENTOR) 
@@ -82,8 +82,9 @@ public class BookingService {
     }
 
     private User getCurrentUser() {
-        String email = SecurityUtils.getCurrentUserEmail();
-        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        String username = SecurityUtils.getCurrentUserUsername();
+
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 }
 

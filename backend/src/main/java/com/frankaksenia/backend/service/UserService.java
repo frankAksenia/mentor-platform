@@ -2,9 +2,13 @@ package com.frankaksenia.backend.service;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.frankaksenia.backend.config.SecurityUtils;
 import com.frankaksenia.backend.dto.UserResponse;
+import com.frankaksenia.backend.model.User;
 import com.frankaksenia.backend.repository.UserRepository;
 
 
@@ -28,6 +32,19 @@ public class UserService {
                             user.getRole().toString()
                     ))
                     .toList();
+    }
+
+    public UserResponse getCurrentUser() {
+        String username = SecurityUtils.getCurrentUserUsername();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        return new UserResponse(
+            user.getId(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getRole().toString()
+        );
     }
 
 }
