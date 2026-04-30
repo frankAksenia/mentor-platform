@@ -41,13 +41,13 @@ public class BookingService {
 
     public List<BookingResponse> getBookingsByStudentId(UUID studentId) {
         return bookingRepository.findByStudentId(studentId).stream()
-        .map(booking -> bookingResponseMapper.mapToBookingResponse(booking))
+        .map(bookingResponseMapper::mapToBookingResponse)
         .toList();
     }
 
     public List<BookingResponse> getBookingsByMentorId(UUID mentorId) {
         return bookingRepository.findByMentorId(mentorId).stream()
-        .map(booking -> bookingResponseMapper.mapToBookingResponse(booking))
+        .map(bookingResponseMapper::mapToBookingResponse)
         .toList();
     }
 

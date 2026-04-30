@@ -10,7 +10,6 @@ public class SkillResponseMapper {
 
     public SkillResponse mapToSkillResponse(Skill skill) {
     return new SkillResponse(
-        skill.getId(),
         skill.getName(),
         skill.getCategory()
     );

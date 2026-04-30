@@ -1,8 +1,5 @@
 package com.frankaksenia.backend.service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.hibernate.Hibernate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,7 +13,6 @@ import com.frankaksenia.backend.exceptions.UnauthorisedActionException;
 import com.frankaksenia.backend.mapper.MentorProfileResponseMapper;
 import com.frankaksenia.backend.model.ERole;
 import com.frankaksenia.backend.model.MentorProfile;
-import com.frankaksenia.backend.model.Skill;
 import com.frankaksenia.backend.model.User;
 import com.frankaksenia.backend.repository.MentorProfileRepository;
 import com.frankaksenia.backend.repository.UserRepository;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.frankaksenia.backend.config.SecurityUtils;
 import com.frankaksenia.backend.dto.UpdateUserRequest;
 import com.frankaksenia.backend.dto.UserResponse;
+import com.frankaksenia.backend.mapper.UsersResponseMapper;
 import com.frankaksenia.backend.model.User;
 import com.frankaksenia.backend.repository.UserRepository;
 
@@ -18,33 +19,22 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final UsersResponseMapper usersResponseMapper;
+
+    public UserService(UserRepository userRepository, UsersResponseMapper usersResponseMapper) {
         this.userRepository = userRepository;
+        this.usersResponseMapper = usersResponseMapper;
     }
 
     public List<UserResponse> getAllUsers() {
             return userRepository.findAll().stream()
-                    .map(user -> new UserResponse(
-                            user.getId(),
-                            user.getFirstName(),
-                            user.getLastName(),
-                            user.getUsername(),
-                            user.getEmail(),
-                            user.getRole().toString()
-                    ))
+                    .map(usersResponseMapper::mapToUsersResponse)
                     .toList();
     }
 
     public UserResponse getUserInfo() {
         User user = getCurrentUser();
-        return new UserResponse(
-            user.getId(),
-            user.getFirstName(),
-            user.getLastName(),
-            user.getUsername(),
-            user.getEmail(),
-            user.getRole().toString()
-        );
+        return usersResponseMapper.mapToUsersResponse(user);
     }
 
     public UserResponse updateUserInfo(UpdateUserRequest request) {
@@ -67,7 +57,8 @@ public class UserService {
         }
 
         userRepository.save(user);
-        return getUserInfo();
+
+        return usersResponseMapper.mapToUsersResponse(user);
     }
 
     private User getCurrentUser() {
