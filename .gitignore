@@ -59,3 +59,19 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.github.java-upgrade/
+
+design.md
+
+### Node / frontend ###
+node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+coverage/
+.vite/

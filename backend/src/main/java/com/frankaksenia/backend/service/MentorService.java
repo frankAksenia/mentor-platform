@@ -71,11 +71,9 @@ public MentorProfileResponse updateMentorProfile(MentorProfileUpdateRequest requ
             "User with id " + mentor.getId() + " is not a mentor");
     }
 
-    // 1. Fetch the profile
     MentorProfile mentorProfile = mentorProfileRepository.findByUser(mentor)
         .orElseThrow(() -> new RuntimeException("Mentor profile not found for user with id: " + mentor.getId()));
 
-    // 2. Update basic fields (using Object wrappers Double/Integer to allow nulls)
     if (request.title() != null) {
         mentorProfile.setTitle(request.title());
     }
@@ -96,21 +94,15 @@ public MentorProfileResponse updateMentorProfile(MentorProfileUpdateRequest requ
         mentorProfile.setLanguages(request.languages());
     }
 
-    // 3. Update Skills safely to avoid ConcurrentModificationException
     if (request.skills() != null) {
-        // Clear the managed collection instead of replacing the Set
         mentorProfile.getSkills().clear();
         mentorProfile.getSkills().addAll(request.skills());
     }
 
-    // 4. Save changes
     mentorProfileRepository.save(mentorProfile);
 
-    // 5. THE CRITICAL FIX: Force initialization while inside the @Transactional session
-    // This prevents the "LazyInitializationException" during mapping
     Hibernate.initialize(mentorProfile.getSkills());
 
-    // 6. Map to Response DTO
     return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
 }
 }
