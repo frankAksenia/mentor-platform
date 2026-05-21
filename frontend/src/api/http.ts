@@ -26,9 +26,9 @@ http.interceptors.response.use(
   },
 );
 
-export function toApiError(error: unknown): string {
+export const toApiError = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     return error.response?.data?.message ?? error.message;
   }
   return "Unexpected error";
-}
+};

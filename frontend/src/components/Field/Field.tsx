@@ -13,12 +13,12 @@ interface BaseProps {
   error?: string;
 }
 
-export function Field({
+export const Field = ({
   label,
   labelExtra,
   error,
   ...props
-}: BaseProps & InputHTMLAttributes<HTMLInputElement>) {
+}: BaseProps & InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <label className="field">
       <span className="field-label-row">
@@ -30,13 +30,13 @@ export function Field({
       {error && <small className="error">{error}</small>}
     </label>
   );
-}
+};
 
-export function TextAreaField({
+export const TextAreaField = ({
   label,
   error,
   ...props
-}: BaseProps & TextareaHTMLAttributes<HTMLTextAreaElement>) {
+}: BaseProps & TextareaHTMLAttributes<HTMLTextAreaElement>) => {
   return (
     <label className="field">
       <span>{label}</span>
@@ -44,14 +44,14 @@ export function TextAreaField({
       {error && <small className="error">{error}</small>}
     </label>
   );
-}
+};
 
-export function SelectField({
+export const SelectField = ({
   label,
   error,
   children,
   ...props
-}: BaseProps & SelectHTMLAttributes<HTMLSelectElement>) {
+}: BaseProps & SelectHTMLAttributes<HTMLSelectElement>) => {
   return (
     <label className="field">
       <span>{label}</span>
@@ -59,4 +59,4 @@ export function SelectField({
       {error && <small className="error">{error}</small>}
     </label>
   );
-}
+};

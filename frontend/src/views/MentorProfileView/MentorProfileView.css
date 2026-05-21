@@ -1,0 +1,347 @@
+/* Main Layout */
+.mentor-profile__back-link {
+  display: flex;
+  width: var(--app-content-width);
+  margin: 30px auto 30px;
+  color: #545f7b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mentor-profile__content {
+  display: flex;
+  gap: 20px;
+  width: var(--app-content-width);
+  margin: 0 auto;
+}
+
+.mentor-profile__main {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mentor-profile__sidebar {
+  flex: 0 0 320px;
+  min-width: 0;
+}
+
+/* Summary Card */
+.mentor-profile__summary-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: flex-start;
+  width: 100%;
+  padding: 28px;
+  box-shadow: none;
+}
+
+.mentor-profile__summary-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Avatar */
+.mentor-profile__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin-right: 20px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #e7edff;
+  color: #3b5ba0;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.mentor-profile__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Identity & Heading */
+.mentor-profile__identity h1,
+.mentor-profile__identity p {
+  margin: 0;
+}
+
+.mentor-profile__identity h1 {
+  margin-bottom: 5px;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+/* Skills */
+.mentor-profile__skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.mentor-profile__skill-list span {
+  padding: 3px 15px;
+  border-radius: 9px;
+  background: #e8e7ef;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Languages */
+.mentor-profile__language-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Details */
+.mentor-profile__details {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.mentor-profile__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mentor-profile__detail-label {
+  margin: 0;
+  color: #444650;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.mentor-profile__detail-value {
+  margin: 0;
+  color: #172033;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Rating */
+.mentor-profile__rating {
+  color: #444650;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mentor-profile__rating span {
+  display: inline-flex;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background-color: #cfdafb;
+  line-height: 1.1;
+}
+
+/* About Card */
+
+.mentor-profile__about-card h2,
+.mentor-profile__about-card p {
+  margin: 0;
+}
+
+.mentor-profile__about-card h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.mentor-profile__about-card p {
+  color: #444650;
+  line-height: 1.6;
+}
+
+/* Booking Card */
+.mentor-profile__booking-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: none;
+}
+
+.mentor-profile__booking-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mentor-profile__booking-title,
+.mentor-profile__price {
+  margin: 0;
+  color: #172033;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.mentor-profile__price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.mentor-profile__price-unit {
+  margin: 0;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.mentor-profile__booking-button {
+  width: min(100%, 280px);
+  padding: 10px 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mentor-profile__booking-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.mentor-profile__booking-availability {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mentor-profile__availability-title {
+  margin: 0;
+  color: #444650;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mentor-profile__booking-availability p:last-child {
+  margin: 0;
+  color: #545f7b;
+  font-size: 14px;
+}
+
+.mentor-profile__slot-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mentor-profile__slot-list button {
+  min-height: 36px;
+  border: 1px solid #c4c6d2;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mentor-profile__slot-list button:hover,
+.mentor-profile__slot-list button:focus-visible {
+  border-color: var(--button-background);
+}
+
+.mentor-profile__slot-list button.is-selected {
+  background: #40475a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mentor-profile__select-date-label {
+  margin: 0;
+  color: #444650;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Calendar Styling */
+.mentor-profile__booking-card .react-calendar {
+  width: 100%;
+  max-width: 280px;
+  border: 0px;
+  font-family: inherit;
+  line-height: 1.2;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+.react-calendar__tile--now {
+  background: #cfdafb;
+  color: #172033;
+  border-radius: 8px;
+}
+
+.mentor-profile__booking-card .react-calendar__tile--active,
+.mentor-profile__booking-card .react-calendar__tile--active:enabled:hover,
+.mentor-profile__booking-card .react-calendar__tile--active:enabled:focus {
+  background: var(--button-background);
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.mentor-profile__booking-card .react-calendar__navigation {
+  height: 36px;
+  margin-bottom: 8px;
+}
+
+.mentor-profile__booking-card .react-calendar__navigation button {
+  min-width: 32px;
+  font-size: 16px;
+}
+
+.mentor-profile__booking-card .react-calendar__month-view__weekdays {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mentor-profile__booking-card .react-calendar__tile {
+  padding: 8px 4px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 1180px) {
+  .mentor-profile {
+    padding: 20px;
+  }
+
+  .mentor-profile__content {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mentor-profile__main,
+  .mentor-profile__sidebar {
+    flex: 0 1 auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .mentor-profile__summary-card {
+    grid-template-columns: 1fr;
+  }
+
+  .mentor-profile__summary-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mentor-profile__avatar {
+    margin-right: 0;
+  }
+}

@@ -1,13 +1,13 @@
 const TOKEN_KEY = "mentor_platform_jwt";
 
-export function getToken(): string | null {
+export const getToken = (): string | null => {
   return localStorage.getItem(TOKEN_KEY);
-}
+};
 
-export function setToken(token: string): void {
+export const setToken = (token: string): void => {
   localStorage.setItem(TOKEN_KEY, token);
-}
+};
 
-export function clearToken(): void {
+export const clearToken = (): void => {
   localStorage.removeItem(TOKEN_KEY);
-}
+};

@@ -60,8 +60,8 @@ public class BookingService {
         if(mentor.getRole() != ERole.MENTOR) 
             throw new UnauthorisedActionException("Invalid User Role", "User with id " + mentor.getId() + " is not a mentor");
 
-        boolean hasConflict = bookingRepository.existsByMentorAndStatusAndStartTimeLessThanAndEndTimeGreaterThan(
-            mentor, BookingStatus.ACCEPTED, request.endTime(), request.startTime()
+        boolean hasConflict = bookingRepository.existsByMentorAndStatusInAndStartTimeLessThanAndEndTimeGreaterThan(
+            mentor, List.of(BookingStatus.PENDING, BookingStatus.ACCEPTED), request.endTime(), request.startTime()
         );
 
         if(hasConflict) 

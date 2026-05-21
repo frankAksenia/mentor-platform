@@ -6,7 +6,7 @@ import { Field } from "../../components/Field/Field";
 import { toApiError } from "../../api/http";
 import "./LoginView.css";
 
-export function LoginPage() {
+export const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,21 +14,21 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(event: FormEvent) {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
     try {
       await login({ username, password });
       const from =
-        (location.state as { from?: Location })?.from?.pathname ?? "/";
+        (location.state as { from?: Location })?.from?.pathname ?? "/mentors";
       navigate(from, { replace: true });
     } catch (err) {
       setError(toApiError(err));
     }
-  }
+  };
 
   return (
-    <div className="login-page">
+    <main className="login-page">
       <div className="split left">
         <div className="centered">
           <p className="headline-large white">Welcome to MentorScale </p>
@@ -81,26 +81,8 @@ export function LoginPage() {
               Sign up for free
             </Link>
           </p>
-
-          <div className="info-box">
-            <div className="info-items">
-              {" "}
-              <a href="#" className="link">
-                Privacy
-              </a>
-              <a href="#" className="link">
-                Terms
-              </a>
-              <a href="#" className="link">
-                Help
-              </a>
-            </div>
-            <div className="center">
-              <p>&copy; 2026 MentorScale</p>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
-}
+};

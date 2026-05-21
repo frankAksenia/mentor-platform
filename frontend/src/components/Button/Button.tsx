@@ -6,10 +6,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
-export function Button({
+export const Button = ({
   variant = "primary",
   className = "",
   ...props
-}: ButtonProps) {
+}: ButtonProps) => {
   return <button className={`btn btn-${variant} ${className}`} {...props} />;
-}
+};

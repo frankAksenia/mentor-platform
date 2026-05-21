@@ -7,6 +7,11 @@ export type BookingStatus =
   | "CANCELLED"
   | "COMPLETED";
 
+  export type AvailableSlot = {
+    startTime: string;
+    endTime: string;
+  };
+
 export interface User {
   id: string;
   firstName: string;
@@ -37,6 +42,20 @@ export interface MentorProfile {
   skills: Skill[];
   averageRating: number;
   reviewCount: number;
+}
+
+export interface MentorPreview {
+  title: string;
+  image: string;
+  first_name: string;
+  last_name: string;
+  price: number;
+  rating: number;
+  experience: number;
+  bio: string;
+  num_reviews: number;
+  skills: string[];
+  languages: string[];
 }
 
 export interface Booking {

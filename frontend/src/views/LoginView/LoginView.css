@@ -1,22 +1,22 @@
 .login-page {
+  position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 640px;
 }
 
 .split {
   height: 100%;
   width: 50%;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 0;
   overflow-x: hidden;
-  padding-top: 20px;
 }
 
 .left {
   left: 0;
   background-color: #242b3b;
-  position: fixed;
 }
 
 .left::before {
@@ -35,7 +35,7 @@
 
 .right {
   right: 0;
-  background-color: #f9f9ff;
+  background-color: #faf8ff;
 }
 
 .centered {
@@ -67,7 +67,6 @@
 }
 
 .headline-large {
-  font-family: "Inter", sans-serif;
   margin: 0;
   font-size: 40px;
   font-weight: 600;
@@ -80,7 +79,6 @@
 }
 
 .lower-text {
-  font-family: "Inter", sans-serif;
   color: #4b4f5c;
   margin-top: 10px;
   font-size: 18px;
@@ -96,7 +94,6 @@
   display: flex;
   justify-content: center;
   color: #4b4f5c;
-  font-family: "Inter", sans-serif;
   font-size: 16px;
 }
 
@@ -105,25 +102,10 @@
   height: auto;
   padding: 10px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 18px;
 
-  background-color: #006052;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 10px;
-
-  font-family: "Inter", sans-serif;
   font-size: 16px;
   letter-spacing: 0.02em;
-
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.15s ease;
 }
 
 .space {
@@ -131,11 +113,7 @@
 }
 
 .login-button:hover {
-  background-color: #004f44;
-}
-
-.login-button:active {
-  transform: translateY(1px);
+  background-color: #08796f;
 }
 
 .login-button-arrow {
@@ -144,32 +122,29 @@
   font-weight: 300;
 }
 
-.info-box {
-  position: absolute;
-  left: 25px;
-  right: 25px;
-  bottom: 10%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.info-items {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-}
-
 .paragraph-text {
-  font-family: "Inter", sans-serif;
   color: #d5defd;
   margin-top: 10px;
   font-size: 22px;
   text-align: left;
+}
+
+@media (max-width: 840px) {
+  .login-page {
+    min-height: auto;
+  }
+
+  .split {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+  }
+
+  .centered {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 0 auto;
+  }
 }

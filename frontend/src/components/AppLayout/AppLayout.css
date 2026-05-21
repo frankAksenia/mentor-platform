@@ -1,0 +1,95 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--app-background);
+}
+
+.app-header,
+.app-footer {
+  display: flex;
+  align-items: center;
+  padding: 16px 32px;
+  background: #ffffff;
+}
+
+.app-footer {
+  min-height: 64px;
+  border-top: 1px solid #dde4ee;
+  color: #5c6878;
+}
+
+.app-header {
+  min-height: 72px;
+  border-bottom: 1px solid #dde4ee;
+}
+
+.app-header-inner,
+.app-footer-inner {
+  width: var(--app-content-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.app-brand {
+  color: #3b5ba0;
+  font-size: 20px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.app-footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.app-nav a,
+.app-footer a {
+  color: #444650;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.app-nav a.active {
+  color: #545f7b;
+  text-decoration: underline;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 720px) {
+  .app-header,
+  .app-footer {
+    padding: 16px 20px;
+  }
+
+  .app-header-inner,
+  .app-footer-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .app-nav,
+  .app-footer-nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    white-space: normal;
+  }
+}
