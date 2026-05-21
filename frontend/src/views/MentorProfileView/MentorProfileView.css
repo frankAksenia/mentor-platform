@@ -313,7 +313,63 @@
   font-size: 14px;
 }
 
+/* Reviews Section */
+
+.mentor-profile__reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: var(--app-content-width);
+  margin: 40px auto;
+}
+
+.mentor-profile__reviews h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.mentor-profile__review-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.mentor-profile__review {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+}
+
+.mentor-profile__review-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mentor-profile__review-header h3,
+.mentor-profile__review p {
+  margin: 0;
+}
+
+.mentor-profile__review-header h3 {
+  font-size: 16px;
+}
+
+.mentor-profile__review-header span {
+  flex: 0 0 auto;
+  color: #687386;
+  font-size: 13px;
+}
+
+.mentor-profile__review-rating {
+  color: #006052;
+  letter-spacing: 1px;
+}
+
 /* Responsive Design */
+
 @media (max-width: 1180px) {
   .mentor-profile {
     padding: 20px;
@@ -343,5 +399,9 @@
 
   .mentor-profile__avatar {
     margin-right: 0;
+  }
+
+  .mentor-profile__review-list {
+    grid-template-columns: 1fr;
   }
 }

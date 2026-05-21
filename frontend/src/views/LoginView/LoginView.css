@@ -1,11 +1,11 @@
-.login-page {
+.login-view {
   position: relative;
   width: 100%;
   height: 100vh;
   min-height: 640px;
 }
 
-.split {
+.login-view__panel {
   height: 100%;
   width: 50%;
   position: absolute;
@@ -14,12 +14,12 @@
   overflow-x: hidden;
 }
 
-.left {
+.login-view__panel--brand {
   left: 0;
   background-color: #242b3b;
 }
 
-.left::before {
+.login-view__panel--brand::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -33,12 +33,12 @@
   pointer-events: none;
 }
 
-.right {
+.login-view__panel--form {
   right: 0;
   background-color: #faf8ff;
 }
 
-.centered {
+.login-view__content {
   position: absolute;
 
   width: 100%;
@@ -60,13 +60,13 @@
   box-sizing: border-box;
 }
 
-.login-form {
+.login-view__form {
   display: flex;
   gap: 25px;
   flex-direction: column;
 }
 
-.headline-large {
+.login-view__headline {
   margin: 0;
   font-size: 40px;
   font-weight: 600;
@@ -74,30 +74,30 @@
   letter-spacing: 0.03em;
 }
 
-.white {
+.login-view__headline--light {
   color: #ffffff;
 }
 
-.lower-text {
+.login-view__subtitle {
   color: #4b4f5c;
   margin-top: 10px;
   font-size: 18px;
 }
 
-.link {
+.login-view__link {
   color: #006052;
   text-decoration: none;
   font-weight: 500;
 }
 
-.muted {
+.login-view__register-text {
   display: flex;
   justify-content: center;
   color: #4b4f5c;
   font-size: 16px;
 }
 
-.login-button {
+.login-view__submit-button {
   width: 100%;
   height: auto;
   padding: 10px;
@@ -108,39 +108,45 @@
   letter-spacing: 0.02em;
 }
 
-.space {
+.login-view__register-link {
   margin-left: 5px;
 }
 
-.login-button:hover {
+.login-view__submit-button:hover {
   background-color: #08796f;
 }
 
-.login-button-arrow {
+.login-view__submit-icon {
   font-size: 22px;
   line-height: 1;
   font-weight: 300;
 }
 
-.paragraph-text {
+.login-view__intro {
   color: #d5defd;
   margin-top: 10px;
   font-size: 22px;
   text-align: left;
 }
 
+.login-view__error {
+  margin: 0;
+  color: #b42318;
+  font-size: 14px;
+}
+
 @media (max-width: 840px) {
-  .login-page {
+  .login-view {
     min-height: auto;
   }
 
-  .split {
+  .login-view__panel {
     position: relative;
     width: 100%;
     min-height: 420px;
   }
 
-  .centered {
+  .login-view__content {
     position: relative;
     top: auto;
     left: auto;

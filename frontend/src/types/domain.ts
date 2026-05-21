@@ -7,10 +7,20 @@ export type BookingStatus =
   | "CANCELLED"
   | "COMPLETED";
 
-  export type AvailableSlot = {
-    startTime: string;
-    endTime: string;
-  };
+export type AvailableSlot = {
+  startTime: string;
+  endTime: string;
+};
+
+export type MentorBookingCardProps = {
+  price: number;
+  selectedDate: Date;
+  selectedSlot: AvailableSlot | null;
+  slots: AvailableSlot[];
+  canBook: boolean;
+  onDateChange: (date: Date) => void;
+  onSlotSelect: (slot: AvailableSlot) => void;
+};
 
 export interface User {
   id: string;

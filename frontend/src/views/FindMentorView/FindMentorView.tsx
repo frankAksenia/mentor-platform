@@ -1,9 +1,7 @@
 import { ChevronDown, Search } from "lucide-react";
-import { Link } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
-import { Card } from "../../components/Card/Card";
-import { IoIosStar } from "react-icons/io";
 import type { MentorPreview } from "../../types/domain";
+import { MentorCard } from "./MentorCard";
 import "./FindMentorView.css";
 
 const placeholderMentors: MentorPreview[] = [
@@ -67,15 +65,17 @@ const placeholderMentors: MentorPreview[] = [
 
 export const FindMentorPage = () => {
   return (
-    <main className="find-mentor-page">
-      <header className="find-mentor-header">
+    <main className="find-mentor-view">
+      <header className="find-mentor-view__header">
         <div>
-          <h1>Discover your perfect mentor</h1>
+          <h1 className="find-mentor-view__title">
+            Discover your perfect mentor
+          </h1>
         </div>
       </header>
 
-      <form className="find-mentor-toolbar" aria-label="Mentor search">
-        <label className="find-mentor-search" htmlFor="mentor-search">
+      <form className="find-mentor-view__toolbar" aria-label="Mentor search">
+        <label className="find-mentor-view__search" htmlFor="mentor-search">
           <Search size={18} aria-hidden="true" />
           <input
             id="mentor-search"
@@ -87,61 +87,27 @@ export const FindMentorPage = () => {
 
         <div className="line-divider" aria-hidden="true" />
 
-        <button className="find-mentor-select" type="button">
+        <button className="find-mentor-view__filter-button" type="button">
           Expertise <ChevronDown size={16} aria-hidden="true" />
         </button>
-        <button className="find-mentor-select" type="button">
+        <button className="find-mentor-view__filter-button" type="button">
           Availability <ChevronDown size={16} aria-hidden="true" />
         </button>
-        <button className="find-mentor-select" type="button">
+        <button className="find-mentor-view__filter-button" type="button">
           Price Range <ChevronDown size={16} aria-hidden="true" />
         </button>
-        <Button className="find-mentor-submit" type="submit">
+        <Button className="find-mentor-view__submit-button" type="submit">
           Search
         </Button>
       </form>
 
-      <section className="mentor-card-grid" aria-label="Mentor results">
+      <section className="find-mentor-view__results" aria-label="Mentor results">
         {placeholderMentors.map((mentor, index) => (
-          <Card
-            as="article"
-            className="mentor-card"
+          <MentorCard
             key={`${mentor.first_name}-${mentor.last_name}-${index}`}
-          >
-            <div className="mentor-card-top-container">
-              <img
-                className="mentor-profile-image"
-                src={mentor.image}
-                alt={mentor.title}
-              />
-              <div className="mentor-card-price-rating">
-                <p>
-                  <IoIosStar />
-                  {mentor.rating} ({mentor.num_reviews}){" "}
-                </p>{" "}
-                <p>
-                  {" "}
-                  From {"\u20AC"}
-                  {mentor.price}/hr
-                </p>
-              </div>
-            </div>
-            <div className="mentor-card-profile-info-container">
-              <h2>
-                {" "}
-                {mentor.first_name} {mentor.last_name}
-              </h2>
-              <h3>{mentor.title}</h3>
-              <p>{mentor.bio}</p>
-            </div>
-            <Link
-              className="view-profile-button"
-              to={`/mentors/${index + 1}`}
-              state={{ mentor }}
-            >
-              View profile
-            </Link>
-          </Card>
+            mentor={mentor}
+            profilePath={`/mentors/${index + 1}`}
+          />
         ))}
       </section>
     </main>

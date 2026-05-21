@@ -1,30 +1,24 @@
-.find-mentor-page {
+.find-mentor-view {
   padding: 32px;
   color: #172033;
 }
 
-.find-mentor-header {
+.find-mentor-view__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   width: var(--app-content-width);
-  margin: 0 auto 28px;
+  margin: 0 auto 20px;
 }
 
-.find-mentor-kicker {
-  margin: 0 0 6px;
-  color: #006052;
-  font-weight: 700;
-}
-
-.find-mentor-header h1 {
+.find-mentor-view__title {
   margin: 0;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 1.15;
 }
 
-.find-mentor-toolbar {
+.find-mentor-view__toolbar {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -38,7 +32,7 @@
   box-shadow: 0 1px 2px rgba(23, 32, 51, 0.04);
 }
 
-.find-mentor-search {
+.find-mentor-view__search {
   display: flex;
   align-items: center;
   flex: 1 1 auto;
@@ -49,7 +43,7 @@
   color: #687386;
 }
 
-.find-mentor-search input {
+.find-mentor-view__search input {
   width: 100%;
   border: 0;
   outline: 0;
@@ -57,17 +51,17 @@
   color: #172033;
 }
 
-.find-mentor-search input::placeholder {
+.find-mentor-view__search input::placeholder {
   color: #697386;
 }
 
-.find-mentor-select,
-.find-mentor-submit {
+.find-mentor-view__filter-button,
+.find-mentor-view__submit-button {
   min-height: 48px;
   white-space: nowrap;
 }
 
-.find-mentor-select {
+.find-mentor-view__filter-button {
   min-width: 132px;
   padding: 0 16px;
   border: 1px solid #cfd4e4;
@@ -76,12 +70,12 @@
   color: #222431;
 }
 
-.find-mentor-submit {
+.find-mentor-view__submit-button {
   min-width: 112px;
   padding: 0 22px;
 }
 
-.mentor-card-grid {
+.find-mentor-view__results {
   display: grid;
   width: var(--app-content-width);
   margin: 0 auto;
@@ -98,56 +92,52 @@
   padding: 18px;
 }
 
-.mentor-card-top-container {
+.mentor-card__header {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
 }
 
-.mentor-card-price-rating {
+.mentor-card__meta {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: flex-start;
   gap: 10px;
 }
 
-.mentor-card h2 {
+.mentor-card__name {
   margin: 0 0 6px;
   font-size: 18px;
 }
 
-.mentor-card p {
+.mentor-card__rating,
+.mentor-card__price,
+.mentor-card__bio {
   margin: 0;
   color: #5c6878;
 }
 
-.mentor-card span {
-  flex: 0 0 auto;
-  color: #006052;
-  font-weight: 700;
-}
-
-.mentor-profile-image {
+.mentor-card__avatar {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.mentor-card-profile-info-container {
+.mentor-card__content {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
 }
 
-.mentor-card-profile-info-container h2 {
+.mentor-card__name {
   font-size: 20px;
   font-weight: 500;
   color: #3b5ba0;
 }
 
-.mentor-card-profile-info-container h3 {
+.mentor-card__title {
   font-size: 18px;
   font-weight: 500;
   color: #444650;
@@ -155,12 +145,12 @@
   margin-bottom: 10px;
 }
 
-.mentor-card-profile-info-container p {
+.mentor-card__bio {
   font-size: 16px;
   color: #444650;
 }
 
-.view-profile-button {
+.mentor-card__profile-link {
   box-sizing: border-box;
   width: 100%;
   height: auto;
@@ -189,43 +179,33 @@
     transform 0.15s ease;
 }
 
-.view-profile-button:hover {
+.mentor-card__profile-link:hover {
   background-color: #cfdafb;
 }
 
-.view-profile-button:active {
+.mentor-card__profile-link:active {
   transform: translateY(1px);
 }
 
-.view-profile-button-arrow {
-  font-size: 22px;
-  line-height: 1;
-  font-weight: 300;
-}
-
 @media (max-width: 720px) {
-  .find-mentor-page {
+  .find-mentor-view {
     padding: 20px;
   }
 
-  .find-mentor-header,
+  .find-mentor-view__header,
   .mentor-card {
     align-items: flex-start;
     flex-direction: column;
   }
 
-  .find-mentor-toolbar {
+  .find-mentor-view__toolbar {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .find-mentor-divider {
-    display: none;
-  }
-
-  .find-mentor-search,
-  .find-mentor-select,
-  .find-mentor-submit {
+  .find-mentor-view__search,
+  .find-mentor-view__filter-button,
+  .find-mentor-view__submit-button {
     width: 100%;
   }
 }

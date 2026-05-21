@@ -1,14 +1,14 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
-import { IoIosStar } from "react-icons/io";
-import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
-import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 import type { MentorPreview, AvailableSlot } from "../../types/domain";
+import MentorBookingCard from "./MentorBookingCard";
+import MentorSummaryCard from "./MentorSummaryCard";
 import "./MentorProfileView.css";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import Reviews from "./Reviews";
 
 type MentorProfileState = {
   mentor?: Partial<MentorPreview>;
@@ -66,7 +66,6 @@ export const MentorProfileView = () => {
     skills: routeMentor?.skills ?? fallbackMentor.skills,
     languages: routeMentor?.languages ?? fallbackMentor.languages,
   };
-  const fullName = `${mentor.first_name} ${mentor.last_name}`;
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
   const slots = getMockAvailableSlots(selectedDate);
@@ -79,124 +78,28 @@ export const MentorProfileView = () => {
       </Link>
       <div className="mentor-profile__content">
         <div className="mentor-profile__main">
-          <Card className="mentor-profile__summary-card">
-            <div className="mentor-profile__avatar">
-              {mentor.image ? (
-                <img src={mentor.image} alt={`Avatar for ${fullName}`} />
-              ) : (
-                <>
-                  {mentor.first_name.charAt(0)}
-                  {mentor.last_name.charAt(0)}
-                </>
-              )}
-            </div>
-
-            <div className="mentor-profile__summary-content">
-              <div className="mentor-profile__identity">
-                <h1>{fullName}</h1>
-                <p>{mentor.title}</p>
-                <div className="mentor-profile__skill-list">
-                  {mentor.skills.map((skill) => (
-                    <span key={skill}>{skill}</span>
-                  ))}
-                </div>
-                <div className="mentor-profile__details">
-                  <div className="mentor-profile__detail">
-                    <h2 className="mentor-profile__detail-label">EXPERIENCE</h2>
-                    <p className="mentor-profile__detail-value">
-                      {mentor.experience} years
-                    </p>
-                  </div>
-                  <div className="line-divider" aria-hidden="true" />
-
-                  <div className="mentor-profile__detail">
-                    <h2 className="mentor-profile__detail-label">LANGUAGES</h2>
-                    <div className="mentor-profile__language-list">
-                      {mentor.languages.map((language) => (
-                        <span
-                          className="mentor-profile__detail-value"
-                          key={language}
-                        >
-                          {language}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="mentor-profile__rating">
-                <span>
-                  <IoIosStar aria-hidden="true" />
-                  {mentor.rating} ({mentor.num_reviews} reviews)
-                </span>
-              </div>
-            </div>
-          </Card>
+          <MentorSummaryCard mentor={mentor} />
           <Card className="mentor-profile__about-card">
             <h2>About</h2>
             <p>{mentor.bio}</p>
           </Card>
         </div>
         <div className="mentor-profile__sidebar">
-          <Card className="mentor-profile__booking-card">
-            <div className="mentor-profile__booking-header">
-              <p className="mentor-profile__booking-title">Book a session</p>
-              <div className="mentor-profile__price-group">
-                <p className="mentor-profile__price">
-                  {"\u20AC"} {mentor.price}
-                </p>
-                <p className="mentor-profile__price-unit">per hour</p>
-              </div>
-            </div>
-            <p className="mentor-profile__select-date-label">Select date</p>
-            <Calendar
-              onChange={(date) => {
-                if (date instanceof Date) {
-                  setSelectedDate(date);
-                  setSelectedSlot(null);
-                }
-              }}
-              value={selectedDate}
-            />
-            <div className="mentor-profile__booking-availability">
-              <p className="mentor-profile__availability-title">
-                Available time slots
-              </p>
-
-              {slots.length === 0 ? (
-                <p>No slots available for this date.</p>
-              ) : (
-                <div className="mentor-profile__slot-list">
-                  {slots.map((slot) => (
-                    <button
-                      key={slot.startTime}
-                      type="button"
-                      className={
-                        selectedSlot?.startTime === slot.startTime
-                          ? "is-selected"
-                          : ""
-                      }
-                      onClick={() => setSelectedSlot(slot)}
-                    >
-                      {new Date(slot.startTime).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            <Button
-              className="mentor-profile__booking-button"
-              type="button"
-              disabled={!mentorId || !selectedSlot}
-            >
-              Confirm and book session
-            </Button>
-          </Card>
+          <MentorBookingCard
+            price={mentor.price}
+            selectedDate={selectedDate}
+            selectedSlot={selectedSlot}
+            slots={slots}
+            canBook={Boolean(mentorId && selectedSlot)}
+            onDateChange={(date: SetStateAction<Date>) => {
+              setSelectedDate(date);
+              setSelectedSlot(null);
+            }}
+            onSlotSelect={setSelectedSlot}
+          />
         </div>
       </div>
+      <Reviews />
     </main>
   );
 };
