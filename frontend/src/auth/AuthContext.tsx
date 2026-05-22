@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchMe, loginUser, registerUser } from "../api/authApi";
+import { http } from "../api/http";
 import { clearToken, getToken, setToken } from "../utils/storage";
 import type { LoginRequest, RegisterRequest } from "../types/api";
 import type { User, UserRole } from "../types/domain";
@@ -33,7 +34,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     onSuccess: async ({ token }) => {
       setToken(token);
       setAuthToken(token);
-      await queryClient.invalidateQueries({ queryKey: ["me"] });
+      http.defaults.headers.common.Authorization = `Bearer ${token}`;
+      await queryClient.fetchQuery({ queryKey: ["me"], queryFn: fetchMe });
     },
   });
 
@@ -42,7 +44,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     onSuccess: async ({ token }) => {
       setToken(token);
       setAuthToken(token);
-      await queryClient.invalidateQueries({ queryKey: ["me"] });
+      http.defaults.headers.common.Authorization = `Bearer ${token}`;
+      await queryClient.fetchQuery({ queryKey: ["me"], queryFn: fetchMe });
     },
   });
 
@@ -62,6 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       logout: () => {
         clearToken();
+        delete http.defaults.headers.common.Authorization;
         setAuthToken(null);
         queryClient.clear();
         window.location.assign("/login");

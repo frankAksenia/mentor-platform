@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import { Button } from "../../components/Button/Button";
-import { Field } from "../../components/Field/Field";
+import { Eye, EyeOff } from "lucide-react";
 import { toApiError } from "../../api/http";
 import "./LoginView.css";
 
@@ -12,6 +12,7 @@ export const LoginPage = () => {
   const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (event: FormEvent) => {
@@ -51,26 +52,50 @@ export const LoginPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="login-view__form">
-            <Field
-              label="Username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <label className="field">
+              <span className="field-label-row">
+                <span className="field-label-text">Username</span>
+              </span>
+              <input
+                className="login-view__field"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </label>
 
-            <Field
-              label="Password"
-              labelExtra={
+            <label className="field">
+              <span className="field-label-row">
+                <span className="field-label-text">Password</span>
                 <a href="#" className="login-view__link">
                   Forgot Password?
                 </a>
-              }
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+              </span>
+              <span className="login-view__password-field">
+                <input
+                  className="login-view__field login-view__password-input"
+                  type={isPasswordVisible ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  className="login-view__password-toggle"
+                  type="button"
+                  aria-label={
+                    isPasswordVisible ? "Hide password" : "Show password"
+                  }
+                  onClick={() => setIsPasswordVisible((visible) => !visible)}
+                >
+                  {isPasswordVisible ? (
+                    <EyeOff size={20} aria-hidden="true" />
+                  ) : (
+                    <Eye size={20} aria-hidden="true" />
+                  )}
+                </button>
+              </span>
+            </label>
 
             {error && <p className="login-view__error">{error}</p>}
 
@@ -82,7 +107,10 @@ export const LoginPage = () => {
 
           <p className="login-view__register-text">
             Don't have an account?{" "}
-            <Link className="login-view__link login-view__register-link" to="/register">
+            <Link
+              className="login-view__link login-view__register-link"
+              to="/register"
+            >
               Sign up for free
             </Link>
           </p>

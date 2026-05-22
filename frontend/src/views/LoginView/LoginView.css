@@ -66,6 +66,27 @@
   flex-direction: column;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.field-label-text {
+  font-weight: 600;
+  color: #222;
+}
+
 .login-view__headline {
   margin: 0;
   font-size: 40px;
@@ -88,6 +109,44 @@
   color: #006052;
   text-decoration: none;
   font-weight: 500;
+}
+
+.login-view__field {
+  padding: 10px 16px;
+  border: var(--card-border);
+  border-radius: 6px;
+}
+
+.login-view__password-field {
+  position: relative;
+  display: block;
+}
+
+.login-view__password-input {
+  width: 100%;
+  padding-right: 48px;
+  box-sizing: border-box;
+}
+
+.login-view__password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #4b4f5c;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.login-view__password-toggle:hover {
+  color: #006052;
 }
 
 .login-view__register-text {
