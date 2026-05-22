@@ -12,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,6 +49,9 @@ public class Booking {
     @Column(name = "meeting_link")
 
     private String meetingLink;
+
+    @OneToOne(optional = false)
+    private MentorAvailability slot;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

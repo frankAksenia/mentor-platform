@@ -1,15 +1,19 @@
 package com.frankaksenia.backend.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -53,4 +57,10 @@ public class MentorProfile {
     
     @ManyToMany
     private Set<Skill> skills = new HashSet<>();
+
+    @OneToMany(
+    mappedBy = "mentorProfile",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
+    private List<MentorAvailability> availabilitySlots = new ArrayList<>();
 }

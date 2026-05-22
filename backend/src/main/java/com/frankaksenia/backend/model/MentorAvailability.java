@@ -1,8 +1,9 @@
 package com.frankaksenia.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -13,21 +14,33 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
+@Table(name = "mentor_availability")
 public class MentorAvailability {
     @Id
     @UuidGenerator
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "mentor_id", nullable = false)
-    private User mentor;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "mentor_profile_id", nullable = false)
+    private MentorProfile mentorProfile;
 
-    @Enumerated(EnumType.STRING)
-    private DayOfWeek dayOfWeek;
+    private LocalDate date;
 
+    @Column(name = "start_time")
     private LocalTime startTime;
 
+    @Column(name = "end_time")
     private LocalTime endTime;
+
+    @Enumerated(EnumType.STRING)
+    private ESlotStatus status = ESlotStatus.AVAILABLE;
 }

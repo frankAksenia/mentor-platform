@@ -1,5 +1,10 @@
 package com.frankaksenia.backend.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.UUID;
+
 import org.hibernate.Hibernate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -9,6 +14,7 @@ import com.frankaksenia.backend.config.SecurityUtils;
 import com.frankaksenia.backend.dto.MentorProfileCreateRequest;
 import com.frankaksenia.backend.dto.MentorProfileResponse;
 import com.frankaksenia.backend.dto.MentorProfileUpdateRequest;
+import com.frankaksenia.backend.exceptions.ResourceNotFoundException;
 import com.frankaksenia.backend.exceptions.UnauthorisedActionException;
 import com.frankaksenia.backend.mapper.MentorProfileResponseMapper;
 import com.frankaksenia.backend.model.ERole;
@@ -104,5 +110,12 @@ public MentorProfileResponse updateMentorProfile(MentorProfileUpdateRequest requ
     Hibernate.initialize(mentorProfile.getSkills());
 
     return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
-}
-}
+    }
+
+public MentorProfileResponse getMentorProfile(UUID mentorId) {
+    MentorProfile mentorProfile = mentorProfileRepository.findById(mentorId)
+        .orElseThrow(() -> new ResourceNotFoundException("Mentor profile", "Mentor profile with id: " + mentorId + " not found"));
+    return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
+    }
+
+}   
