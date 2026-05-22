@@ -50,7 +50,8 @@ public class Booking {
 
     private String meetingLink;
 
-    @OneToOne(optional = false)
+    @OneToOne
+    @JoinColumn(name = "slot_id")
     private MentorAvailability slot;
 
     @Column(name = "created_at")

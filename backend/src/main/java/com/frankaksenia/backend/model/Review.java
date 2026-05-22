@@ -11,10 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 public class Review {
 
@@ -25,14 +27,6 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
-
-    @ManyToOne
-    @JoinColumn(name = "mentor_id", nullable = false)
-    private User mentor;
-
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private User student;
 
     @Column(nullable = false)
     private float rating;

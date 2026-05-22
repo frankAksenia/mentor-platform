@@ -14,13 +14,17 @@ import com.frankaksenia.backend.config.SecurityUtils;
 import com.frankaksenia.backend.dto.MentorProfileCreateRequest;
 import com.frankaksenia.backend.dto.MentorProfileResponse;
 import com.frankaksenia.backend.dto.MentorProfileUpdateRequest;
+import com.frankaksenia.backend.dto.MentorReviewsResponse;
 import com.frankaksenia.backend.exceptions.ResourceNotFoundException;
 import com.frankaksenia.backend.exceptions.UnauthorisedActionException;
 import com.frankaksenia.backend.mapper.MentorProfileResponseMapper;
+import com.frankaksenia.backend.mapper.MentorReviewsResponseMapper;
 import com.frankaksenia.backend.model.ERole;
 import com.frankaksenia.backend.model.MentorProfile;
+import com.frankaksenia.backend.model.Review;
 import com.frankaksenia.backend.model.User;
 import com.frankaksenia.backend.repository.MentorProfileRepository;
+import com.frankaksenia.backend.repository.ReviewRepository;
 import com.frankaksenia.backend.repository.UserRepository;
 
 
@@ -30,12 +34,16 @@ public class MentorService {
 
     private final UserRepository userRepository;
     private final MentorProfileRepository mentorProfileRepository;
+    private final ReviewRepository reviewRepository;
     private final MentorProfileResponseMapper mentorProfileResponseMapper;
+    private final MentorReviewsResponseMapper mentorReviewsResponseMapper;
 
-    public MentorService(UserRepository userRepository, MentorProfileRepository mentorProfileRepository, MentorProfileResponseMapper mentorProfileResponseMapper) {
+    public MentorService(UserRepository userRepository, MentorProfileRepository mentorProfileRepository, ReviewRepository reviewRepository, MentorProfileResponseMapper mentorProfileResponseMapper) {
         this.userRepository = userRepository;
         this.mentorProfileRepository = mentorProfileRepository;
+        this.reviewRepository = reviewRepository;
         this.mentorProfileResponseMapper = mentorProfileResponseMapper;
+        this.mentorReviewsResponseMapper = new MentorReviewsResponseMapper();
     }
 
     public MentorProfileResponse createMentorProfile(MentorProfileCreateRequest request) {
@@ -116,6 +124,17 @@ public MentorProfileResponse getMentorProfile(UUID mentorId) {
     MentorProfile mentorProfile = mentorProfileRepository.findById(mentorId)
         .orElseThrow(() -> new ResourceNotFoundException("Mentor profile", "Mentor profile with id: " + mentorId + " not found"));
     return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
+    }
+
+public List<MentorReviewsResponse> getMentorReviews(UUID mentorId) {
+    UUID mentorUserId = mentorProfileRepository.findById(mentorId)
+        .map(mentorProfile -> mentorProfile.getUser().getId())
+        .orElse(mentorId);
+
+    List<Review> reviews = reviewRepository.findByBooking_Mentor_Id(mentorUserId);    
+    return reviews.stream()
+        .map(mentorReviewsResponseMapper::mapToMentorReviewsResponse)
+        .toList();
     }
 
 }   

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.frankaksenia.backend.dto.MentorAvailabilityResponse;
 import com.frankaksenia.backend.mapper.MentorAvailibilityResponseMapper;
+import com.frankaksenia.backend.model.ESlotStatus;
 import com.frankaksenia.backend.repository.MentorAvailabilityRepository;
 import com.frankaksenia.backend.repository.MentorProfileRepository;
 
@@ -26,7 +27,7 @@ public class MentorAvailabilityService {
     }
 
     public List<MentorAvailabilityResponse> getMentorAvailability(UUID mentorId, LocalDate date) {
-    return mentorAvailabilityRepository.findAvailableTimeSlots(mentorId, date).stream()
+    return mentorAvailabilityRepository.findByMentorProfile_IdAndDateAndStatusOrderByStartTimeAsc(mentorId, date, ESlotStatus.AVAILABLE).stream()
         .map(mentorAvailibilityResponseMapper::mapToMentorAvailabilityResponse)
         .toList();
     }

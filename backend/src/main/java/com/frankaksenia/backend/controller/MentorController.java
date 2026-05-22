@@ -6,6 +6,7 @@ import com.frankaksenia.backend.dto.MentorAvailabilityResponse;
 import com.frankaksenia.backend.dto.MentorProfileCreateRequest;
 import com.frankaksenia.backend.dto.MentorProfileResponse;
 import com.frankaksenia.backend.dto.MentorProfileUpdateRequest;
+import com.frankaksenia.backend.dto.MentorReviewsResponse;
 import com.frankaksenia.backend.service.MentorAvailabilityService;
 import com.frankaksenia.backend.service.MentorService;
 
@@ -62,6 +63,12 @@ public class MentorController {
     public ResponseEntity<List<MentorAvailabilityResponse>> getMentorAvailability(@RequestParam UUID mentorId, @RequestParam LocalDate date) {
         List<MentorAvailabilityResponse> availability = mentorAvailabilityService.getMentorAvailability(mentorId, date);
         return ResponseEntity.status(HttpStatus.OK).body(availability);
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<List<MentorReviewsResponse>> getMentorReviews(@RequestParam UUID mentorId) {
+        List<MentorReviewsResponse> reviews = mentorService.getMentorReviews(mentorId);
+        return ResponseEntity.status(HttpStatus.OK).body(reviews);
     }
     
     
