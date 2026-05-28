@@ -68,8 +68,8 @@ public class MentorController {
         return ResponseEntity.status(HttpStatus.OK).body(mentorProfileResponse);
     }
 
-    @GetMapping("/availability")
-    public ResponseEntity<List<MentorAvailabilityResponse>> getMentorAvailability(@RequestParam UUID mentorId, @RequestParam LocalDate date) {
+    @GetMapping("/{mentorId}/availability")
+    public ResponseEntity<List<MentorAvailabilityResponse>> getMentorAvailability(@PathVariable UUID mentorId, @RequestParam LocalDate date) {
         List<MentorAvailabilityResponse> availability = mentorAvailabilityService.getMentorAvailability(mentorId, date);
         return ResponseEntity.status(HttpStatus.OK).body(availability);
     }

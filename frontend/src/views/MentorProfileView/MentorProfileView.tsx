@@ -7,38 +7,21 @@ import type { MentorProfile, AvailableSlot } from "../../types/domain";
 import MentorBookingCard from "./MentorBookingCard";
 import MentorSummaryCard from "./MentorSummaryCard";
 import "./MentorProfileView.css";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import Reviews from "./Reviews";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMentorAvailability } from "../../api/mentorApi";
 
 type MentorProfileState = {
   mentor?: Partial<MentorProfile>;
 };
 
-const mockSlotHours = [9, 10, 11, 14, 15, 16];
-
-const toLocalDateParam = (date: Date) => {
+const toLocalDateString = (date: Date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
-};
-
-const createDateTime = (date: Date, hour: number) => {
-  return `${toLocalDateParam(date)}T${String(hour).padStart(2, "0")}:00:00`;
-};
-
-const getMockAvailableSlots = (date: Date): AvailableSlot[] => {
-  const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-
-  if (isWeekend) {
-    return [];
-  }
-
-  return mockSlotHours.map((hour) => ({
-    startTime: createDateTime(date, hour),
-    endTime: createDateTime(date, hour + 1),
-  }));
 };
 
 export const MentorProfileView = () => {
@@ -48,7 +31,13 @@ export const MentorProfileView = () => {
   const mentor = (routeMentor ?? {}) as MentorProfile;
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
-  const slots = getMockAvailableSlots(selectedDate);
+  const selectedDateParam = toLocalDateString(selectedDate);
+
+  const { data: slots = [] } = useQuery({
+    queryKey: ["mentorAvailability", mentorId, selectedDateParam],
+    queryFn: () => fetchMentorAvailability(mentorId!, selectedDateParam),
+    enabled: Boolean(mentorId),
+  });
 
   return (
     <main>
@@ -71,7 +60,7 @@ export const MentorProfileView = () => {
             selectedSlot={selectedSlot}
             slots={slots}
             canBook={Boolean(mentorId && selectedSlot)}
-            onDateChange={(date: SetStateAction<Date>) => {
+            onDateChange={(date) => {
               setSelectedDate(date);
               setSelectedSlot(null);
             }}
