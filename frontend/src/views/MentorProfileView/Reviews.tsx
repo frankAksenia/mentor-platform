@@ -9,34 +9,37 @@ type ReviewsProps = {
 
 const Reviews = ({ mentorId }: ReviewsProps) => {
   const { data: reviews = [] } = useQuery({
-    queryKey: ["mentorReviews"],
+    queryKey: ["mentorReviews", mentorId],
     queryFn: () => fetchReviewsForMentor(mentorId),
+    enabled: Boolean(mentorId),
   });
-
-  const createdAt = reviews.length > 0 ? new Date(reviews[0].createdAt) : null;
 
   return (
     <div className="mentor-profile__reviews">
       <h2>Student reviews</h2>
       <div className="mentor-profile__review-list">
-        {reviews.map((review) => (
-          <Card
-            as="article"
-            className="mentor-profile__review"
-            key={review.reviewId}
-          >
-            <div className="mentor-profile__review-header">
-              <h3>
-                {review.reviewerFirstName} {review.reviewerLastName}
-              </h3>
-              <span>{createdAt?.toLocaleString()}</span>
-            </div>
-            <p className="mentor-profile__review-rating">
-              {"★".repeat(review.rating)}
-            </p>
-            <p>{review.comment}</p>
-          </Card>
-        ))}
+        {reviews.map((review) => {
+          const createdAt = new Date(review.createdAt);
+
+          return (
+            <Card
+              as="article"
+              className="mentor-profile__review"
+              key={review.reviewId}
+            >
+              <div className="mentor-profile__review-header">
+                <h3>
+                  {review.reviewerFirstName} {review.reviewerLastName}
+                </h3>
+                <span>{createdAt.toLocaleString()}</span>
+              </div>
+              <p className="mentor-profile__review-rating">
+                {"★".repeat(Math.round(review.rating))}
+              </p>
+              <p>{review.comment}</p>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );

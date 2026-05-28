@@ -11,8 +11,8 @@ public record MentorProfileResponse(
     String title, 
     String bio,
     double hourlyRate,
-    double averageRating,
-    int reviewsCount,
+    Double averageRating,
+    Long reviewsCount,
     int yearOfExperience,
     Set<SkillResponse> skills,
     Set<String> languages

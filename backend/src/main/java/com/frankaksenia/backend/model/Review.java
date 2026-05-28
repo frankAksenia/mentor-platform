@@ -25,8 +25,16 @@ public class Review {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "booking_id")
     private Booking booking;
+
+    @ManyToOne
+    @JoinColumn(name = "mentor_profile_id", nullable = false)
+    private MentorProfile mentorProfile;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private User student;
 
     @Column(nullable = false)
     private float rating;

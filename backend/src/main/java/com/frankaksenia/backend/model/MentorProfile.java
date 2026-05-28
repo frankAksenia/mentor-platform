@@ -50,10 +50,10 @@ public class MentorProfile {
     private boolean isActive;
 
     @Column(name = "average_rating")
-    private float averageRating;
+    private Double averageRating;
 
     @Column(name = "reviews_count")
-    private int reviewsCount;
+    private Long reviewsCount;
     
     @ManyToMany
     private Set<Skill> skills = new HashSet<>();

@@ -117,31 +117,50 @@ public MentorProfileResponse updateMentorProfile(MentorProfileUpdateRequest requ
 
     Hibernate.initialize(mentorProfile.getSkills());
 
+    Double averageRating = reviewRepository.findAverageRatingByMentorId(mentorProfile.getId());
+    Long reviewsCount = reviewRepository.countReviewsByMentorId(mentorProfile.getId());
+
+    mentorProfile.setAverageRating(averageRating != null ? averageRating : 0.0);
+    mentorProfile.setReviewsCount(reviewsCount != null ? reviewsCount : 0L);
+
     return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
     }
 
 public MentorProfileResponse getMentorProfile(UUID mentorId) {
     MentorProfile mentorProfile = mentorProfileRepository.findById(mentorId)
         .orElseThrow(() -> new ResourceNotFoundException("Mentor profile", "Mentor profile with id: " + mentorId + " not found"));
+
+
+    Double averageRating = reviewRepository.findAverageRatingByMentorId(mentorId);
+    Long reviewsCount = reviewRepository.countReviewsByMentorId(mentorId);
+
+    mentorProfile.setAverageRating(averageRating != null ? averageRating : 0.0);
+    mentorProfile.setReviewsCount(reviewsCount != null ? reviewsCount : 0L);
+
     return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
     }
 
 public List<MentorReviewsResponse> getMentorReviews(UUID mentorId) {
-    UUID mentorUserId = mentorProfileRepository.findById(mentorId)
-        .map(mentorProfile -> mentorProfile.getUser().getId())
-        .orElse(mentorId);
-
-    List<Review> reviews = reviewRepository.findByBooking_Mentor_Id(mentorUserId);    
+    List<Review> reviews = reviewRepository.findByMentorProfile_Id(mentorId);    
     return reviews.stream()
         .map(mentorReviewsResponseMapper::mapToMentorReviewsResponse)
         .toList();
     }
 
-// @Transactional(readOnly = true)
 public List<MentorProfileResponse> getAllMentors() {
     List<MentorProfile> mentorProfiles = mentorProfileRepository.findAllMentors();
+
     return mentorProfiles.stream()
-        .map(mentorProfileResponseMapper::mapToMentorProfileResponse)
+        .map(mentorProfile -> {
+            Double averageRating = reviewRepository.findAverageRatingByMentorId(mentorProfile.getId());
+
+            Long reviewsCount = reviewRepository.countReviewsByMentorId(mentorProfile.getId());
+
+            mentorProfile.setAverageRating(averageRating != null ? averageRating : 0.0);
+            mentorProfile.setReviewsCount(reviewsCount != null ? reviewsCount : 0L);
+
+            return mentorProfileResponseMapper.mapToMentorProfileResponse(mentorProfile);
+        })
         .toList();
 }
 

@@ -79,7 +79,7 @@ export const MentorProfileView = () => {
           />
         </div>
       </div>
-      <Reviews mentorId={mentor.mentorProfileId} />
+      {mentorId && <Reviews mentorId={mentorId} />}
     </main>
   );
 };
