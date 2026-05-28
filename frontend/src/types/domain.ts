@@ -41,32 +41,21 @@ export interface Skill {
 }
 
 export interface MentorProfile {
-  id: string;
-  user: User;
+  userId: string;
+  mentorProfileId: string;
+  image?: string | null;
+  firstName: string;
+  lastName: string;
   title: string;
   bio: string;
   hourlyRate: number;
   yearsOfExperience: number;
   languages: string[];
-  active: boolean;
   skills: Skill[];
   averageRating: number;
-  reviewCount: number;
-}
+  reviewsCount: number;
+};
 
-export interface MentorPreview {
-  title: string;
-  image: string;
-  first_name: string;
-  last_name: string;
-  price: number;
-  rating: number;
-  experience: number;
-  bio: string;
-  num_reviews: number;
-  skills: string[];
-  languages: string[];
-}
 
 export interface Booking {
   id: string;
@@ -83,14 +72,13 @@ export interface Booking {
 }
 
 export interface Review {
-  id: string;
-  booking: Booking;
-  student: User;
-  mentor: MentorProfile;
-  rating: 1 | 2 | 3 | 4 | 5;
+  reviewId: string;
   comment: string;
   createdAt: string;
-}
+  rating: number;
+  reviewerFirstName: string;
+  reviewerLastName: string;
+};
 
 export interface Page<T> {
   content: T[];

@@ -30,7 +30,7 @@ import com.frankaksenia.backend.repository.UserRepository;
 
 
 @Service
-public class MentorService {
+public class MentorProfileService {
 
     private final UserRepository userRepository;
     private final MentorProfileRepository mentorProfileRepository;
@@ -38,7 +38,7 @@ public class MentorService {
     private final MentorProfileResponseMapper mentorProfileResponseMapper;
     private final MentorReviewsResponseMapper mentorReviewsResponseMapper;
 
-    public MentorService(UserRepository userRepository, MentorProfileRepository mentorProfileRepository, ReviewRepository reviewRepository, MentorProfileResponseMapper mentorProfileResponseMapper) {
+    public MentorProfileService(UserRepository userRepository, MentorProfileRepository mentorProfileRepository, ReviewRepository reviewRepository, MentorProfileResponseMapper mentorProfileResponseMapper) {
         this.userRepository = userRepository;
         this.mentorProfileRepository = mentorProfileRepository;
         this.reviewRepository = reviewRepository;
@@ -136,5 +136,13 @@ public List<MentorReviewsResponse> getMentorReviews(UUID mentorId) {
         .map(mentorReviewsResponseMapper::mapToMentorReviewsResponse)
         .toList();
     }
+
+// @Transactional(readOnly = true)
+public List<MentorProfileResponse> getAllMentors() {
+    List<MentorProfile> mentorProfiles = mentorProfileRepository.findAllMentors();
+    return mentorProfiles.stream()
+        .map(mentorProfileResponseMapper::mapToMentorProfileResponse)
+        .toList();
+}
 
 }   

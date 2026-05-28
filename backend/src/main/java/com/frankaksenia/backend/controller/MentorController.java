@@ -8,7 +8,7 @@ import com.frankaksenia.backend.dto.MentorProfileResponse;
 import com.frankaksenia.backend.dto.MentorProfileUpdateRequest;
 import com.frankaksenia.backend.dto.MentorReviewsResponse;
 import com.frankaksenia.backend.service.MentorAvailabilityService;
-import com.frankaksenia.backend.service.MentorService;
+import com.frankaksenia.backend.service.MentorProfileService;
 
 import jakarta.validation.Valid;
 
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -32,14 +33,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/mentors")
 public class MentorController {
 
-    private final MentorService mentorService;
+    private final MentorProfileService mentorService;
 
     private final MentorAvailabilityService mentorAvailabilityService;
 
-    public MentorController(MentorService mentorService, MentorAvailabilityService mentorAvailabilityService) {
+    public MentorController(MentorProfileService mentorService, MentorAvailabilityService mentorAvailabilityService) {
         this.mentorService = mentorService;
         this.mentorAvailabilityService = mentorAvailabilityService;
     }
+
+
+    @GetMapping
+    public ResponseEntity<List<MentorProfileResponse>> getAllMentors() {
+        List<MentorProfileResponse> mentors = mentorService.getAllMentors();
+        return ResponseEntity.status(HttpStatus.OK).body(mentors);
+    }
+
 
     @PostMapping("/profile")
     public ResponseEntity<MentorProfileResponse> createMentorProfile(@Valid @RequestBody MentorProfileCreateRequest request) {
@@ -65,8 +74,8 @@ public class MentorController {
         return ResponseEntity.status(HttpStatus.OK).body(availability);
     }
 
-    @GetMapping("/reviews")
-    public ResponseEntity<List<MentorReviewsResponse>> getMentorReviews(@RequestParam UUID mentorId) {
+    @GetMapping("/{mentorId}/reviews")
+    public ResponseEntity<List<MentorReviewsResponse>> getMentorReviews(@PathVariable UUID mentorId) {
         List<MentorReviewsResponse> reviews = mentorService.getMentorReviews(mentorId);
         return ResponseEntity.status(HttpStatus.OK).body(reviews);
     }

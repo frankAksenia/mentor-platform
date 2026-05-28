@@ -119,10 +119,18 @@
 }
 
 .mentor-card__avatar {
-  width: 64px;
-  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-right: 20px;
+  overflow: hidden;
   border-radius: 50%;
-  object-fit: cover;
+  background: #e7edff;
+  color: #3b5ba0;
+  font-size: 25px;
+  font-weight: 800;
 }
 
 .mentor-card__content {

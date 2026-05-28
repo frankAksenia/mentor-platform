@@ -1,69 +1,16 @@
 import { ChevronDown, Search } from "lucide-react";
 import { Button } from "../../components/Button/Button";
-import type { MentorPreview } from "../../types/domain";
-import { MentorCard } from "./MentorCard";
+import MentorCard from "./MentorCard";
 import "./FindMentorView.css";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMentors } from "../../api/mentorApi";
 
-const placeholderMentors: MentorPreview[] = [
-  {
-    title: "Product Strategy",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAWnWViImVlhZOqEG0XvqJN6NnV2jo6pZcxRPX-K4iCKMh_HjtN4p3oPJlKg1LVu-BAiWstu_7w8JuuMdbd_xg2mOjkn7AIZgdNyr83QFws9MSf-aACmdFEFwv2taHXo2WJHinsRU-K6SY65UjaYm8dsdbtkLlEkFw5dd2kM4h-Shnq2RSMWbNOBbQuXgoDxr--VVF1XhdPdbVLIPlZuFjVBHDa1t22viWhK0XfPiejQW-OOeMCJki5g-PjIWiJzqL7Akulyi5gD4o",
-    first_name: "Ksusha",
-    last_name: "Frank",
-    price: 90,
-    rating: 4.5,
-    experience: 10,
-    bio: "Experienced product leader with a passion for helping teams build impactful products. I have over 10 years of experience in product management, working with startups and large enterprises to define and execute product strategies that drive growth and customer satisfaction.",
-    num_reviews: 120,
-    skills: ["Roadmaps", "Discovery", "Stakeholder Alignment"],
-    languages: ["English", "Spanish"],
-  },
-  {
-    title: "Frontend Engineering",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAWnWViImVlhZOqEG0XvqJN6NnV2jo6pZcxRPX-K4iCKMh_HjtN4p3oPJlKg1LVu-BAiWstu_7w8JuuMdbd_xg2mOjkn7AIZgdNyr83QFws9MSf-aACmdFEFwv2taHXo2WJHinsRU-K6SY65UjaYm8dsdbtkLlEkFw5dd2kM4h-Shnq2RSMWbNOBbQuXgoDxr--VVF1XhdPdbVLIPlZuFjVBHDa1t22viWhK0XfPiejQW-OOeMCJki5g-PjIWiJzqL7Akulyi5gD4o",
-    first_name: "John",
-    last_name: "Doe",
-    price: 80,
-    rating: 4.2,
-    experience: 8,
-    bio: "Senior frontend engineer with a focus on building scalable and maintainable web applications. I have a strong background in React and TypeScript, and I enjoy mentoring junior developers to help them grow their skills and advance their careers.",
-    num_reviews: 85,
-    skills: ["React", "TypeScript", "Design Systems"],
-    languages: ["English"],
-  },
-  {
-    title: "Career Growth",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAWnWViImVlhZOqEG0XvqJN6NnV2jo6pZcxRPX-K4iCKMh_HjtN4p3oPJlKg1LVu-BAiWstu_7w8JuuMdbd_xg2mOjkn7AIZgdNyr83QFws9MSf-aACmdFEFwv2taHXo2WJHinsRU-K6SY65UjaYm8dsdbtkLlEkFw5dd2kM4h-Shnq2RSMWbNOBbQuXgoDxr--VVF1XhdPdbVLIPlZuFjVBHDa1t22viWhK0XfPiejQW-OOeMCJki5g-PjIWiJzqL7Akulyi5gD4o",
-    first_name: "Jane",
-    last_name: "Smith",
-    price: 70,
-    rating: 4.7,
-    experience: 15,
-    bio: "Career coach with a focus on helping tech professionals navigate their career paths and achieve their goals. I have experience in both individual coaching and group workshops, and I am passionate about empowering others to reach their full potential.",
-    num_reviews: 200,
-    skills: ["Interview Prep", "Promotion Planning", "Leadership"],
-    languages: ["English", "French"],
-  },
-  {
-    title: "Professional eater",
-    first_name: "Persik",
-    last_name: "Frank",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAWnWViImVlhZOqEG0XvqJN6NnV2jo6pZcxRPX-K4iCKMh_HjtN4p3oPJlKg1LVu-BAiWstu_7w8JuuMdbd_xg2mOjkn7AIZgdNyr83QFws9MSf-aACmdFEFwv2taHXo2WJHinsRU-K6SY65UjaYm8dsdbtkLlEkFw5dd2kM4h-Shnq2RSMWbNOBbQuXgoDxr--VVF1XhdPdbVLIPlZuFjVBHDa1t22viWhK0XfPiejQW-OOeMCJki5g-PjIWiJzqL7Akulyi5gD4o",
-    price: 0,
-    rating: 5.0,
-    experience: 5,
-    bio: "I am a professional eater with a passion for food and a love of sleep. I have been eating professionally for over 5 years, and I have a deep understanding of the culinary world and the art of eating. I am always looking for new and exciting foods to try, and I am dedicated to sharing my love of food with others.",
-    num_reviews: 999,
-    skills: ["Eating", "Sleeping"],
-    languages: ["English"],
-  },
-];
+const FindMentorPage = () => {
+  const { data: mentors = [] } = useQuery({
+    queryKey: ["mentors"],
+    queryFn: fetchMentors,
+  });
 
-export const FindMentorPage = () => {
   return (
     <main className="find-mentor-view">
       <header className="find-mentor-view__header">
@@ -101,15 +48,20 @@ export const FindMentorPage = () => {
         </Button>
       </form>
 
-      <section className="find-mentor-view__results" aria-label="Mentor results">
-        {placeholderMentors.map((mentor, index) => (
+      <section
+        className="find-mentor-view__results"
+        aria-label="Mentor results"
+      >
+        {mentors.map((mentor, index) => (
           <MentorCard
-            key={`${mentor.first_name}-${mentor.last_name}-${index}`}
+            key={`${mentor.firstName}-${mentor.lastName}-${index}`}
             mentor={mentor}
-            profilePath={`/mentors/${index + 1}`}
+            profilePath={`/mentors/${mentor.mentorProfileId}`}
           />
         ))}
       </section>
     </main>
   );
 };
+
+export default FindMentorPage;

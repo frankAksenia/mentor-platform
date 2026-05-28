@@ -1,6 +1,7 @@
 package com.frankaksenia.backend.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-public record MentorReviewsResponse(String reviewer_first_name, String reviewer_last_name, float rating, String comment, LocalDateTime created_at) 
+public record MentorReviewsResponse(UUID reviewId, String reviewerFirstName, String reviewerLastName, float rating, String comment, LocalDateTime createdAt) 
 {}

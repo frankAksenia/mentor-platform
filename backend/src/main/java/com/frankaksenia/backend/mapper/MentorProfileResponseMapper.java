@@ -20,15 +20,18 @@ public class MentorProfileResponseMapper {
         return new MentorProfileResponse(
             mentorProfile.getUser().getId(),
             mentorProfile.getId(),
+            mentorProfile.getUser().getFirstName(),
+            mentorProfile.getUser().getLastName(),
             mentorProfile.getTitle(),
             mentorProfile.getBio(),
             mentorProfile.getHourlyRate(),
-            mentorProfile.getYearsOfExperience(),
-            mentorProfile.getLanguages(),
-            mentorProfile.getSkills()
-                .stream()
+            mentorProfile.getAverageRating(),
+            mentorProfile.getReviewsCount(),
+            mentorProfile.getYearsOfExperience(),           
+            mentorProfile.getSkills().stream()
                 .map(skillResponseMapper::mapToSkillResponse)
-                .collect(Collectors.toSet())
+                .collect(Collectors.toSet()),
+            mentorProfile.getLanguages()
         ); 
     }
 }

@@ -7,6 +7,7 @@ public class MentorReviewsResponseMapper {
 
     public MentorReviewsResponse mapToMentorReviewsResponse(Review review) {
         return new MentorReviewsResponse(
+            review.getId(),
             review.getBooking().getStudent().getFirstName(),
             review.getBooking().getStudent().getLastName(),
             review.getRating(),

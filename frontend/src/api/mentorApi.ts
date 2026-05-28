@@ -2,11 +2,8 @@ import { http } from "./http";
 import type { MentorProfile } from "../types/domain";
 
 export const fetchMentors = async (): Promise<MentorProfile[]> => {
-  const { data } = await http.get<MentorProfile[]>("/mentors");
-  return data;
-};
+  const { data } = await http.get<MentorProfile[]>("mentors");
 
-export const fetchMentor = async (id: string): Promise<MentorProfile> => {
-  const { data } = await http.get<MentorProfile>(`/mentors/${id}`);
+  console.log("Fetched mentors data:", data); // IGNORE
   return data;
 };

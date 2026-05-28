@@ -1,36 +1,48 @@
 import { IoIosStar } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { Card } from "../../components/Card/Card";
-import type { MentorPreview } from "../../types/domain";
+import type { MentorProfile } from "../../types/domain";
+import { useState } from "react";
 
 type MentorCardProps = {
-  mentor: MentorPreview;
+  mentor: MentorProfile;
   profilePath: string;
 };
 
-export const MentorCard = ({ mentor, profilePath }: MentorCardProps) => {
+const MentorCard = ({ mentor, profilePath }: MentorCardProps) => {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <Card as="article" className="mentor-card">
       <div className="mentor-card__header">
-        <img
-          className="mentor-card__avatar"
-          src={mentor.image}
-          alt={mentor.title}
-        />
+        <div className="mentor-card__avatar">
+          {mentor.image && !imageError ? (
+            <img
+              src={mentor.image}
+              alt={`Avatar for ${mentor.firstName} ${mentor.lastName}`}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div>
+              {mentor.firstName?.[0]}
+              {mentor.lastName?.[0]}
+            </div>
+          )}
+        </div>
         <div className="mentor-card__meta">
           <p className="mentor-card__rating">
             <IoIosStar />
-            {mentor.rating} ({mentor.num_reviews})
+            {mentor.averageRating.toFixed(1)} ({mentor.reviewsCount})
           </p>
           <p className="mentor-card__price">
             From {"\u20AC"}
-            {mentor.price}/hr
+            {mentor.hourlyRate}/hr
           </p>
         </div>
       </div>
       <div className="mentor-card__content">
         <h2 className="mentor-card__name">
-          {mentor.first_name} {mentor.last_name}
+          {mentor.firstName} {mentor.lastName}
         </h2>
         <h3 className="mentor-card__title">{mentor.title}</h3>
         <p className="mentor-card__bio">{mentor.bio}</p>
@@ -45,3 +57,5 @@ export const MentorCard = ({ mentor, profilePath }: MentorCardProps) => {
     </Card>
   );
 };
+
+export default MentorCard;

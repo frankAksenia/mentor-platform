@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AppLayout } from "../components/AppLayout/AppLayout";
-import { FindMentorPage } from "../views/FindMentorView/FindMentorView";
+import  FindMentorPage  from "../views/FindMentorView/FindMentorView";
 import { LoginPage } from "../views/LoginView/LoginView";
 import { MentorProfileView } from "../views/MentorProfileView/MentorProfileView";
 

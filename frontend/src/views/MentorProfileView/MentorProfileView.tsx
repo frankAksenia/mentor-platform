@@ -3,7 +3,7 @@ import { ChevronLeft } from "lucide-react";
 import { Card } from "../../components/Card/Card";
 import "react-calendar/dist/Calendar.css";
 
-import type { MentorPreview, AvailableSlot } from "../../types/domain";
+import type { MentorProfile, AvailableSlot } from "../../types/domain";
 import MentorBookingCard from "./MentorBookingCard";
 import MentorSummaryCard from "./MentorSummaryCard";
 import "./MentorProfileView.css";
@@ -11,22 +11,7 @@ import { SetStateAction, useState } from "react";
 import Reviews from "./Reviews";
 
 type MentorProfileState = {
-  mentor?: Partial<MentorPreview>;
-};
-
-const fallbackMentor: MentorPreview = {
-  title: "Mentor profile",
-  image:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuAWnWViImVlhZOqEG0XvqJN6NnV2jo6pZcxRPX-K4iCKMh_HjtN4p3oPJlKg1LVu-BAiWstu_7w8JuuMdbd_xg2mOjkn7AIZgdNyr83QFws9MSf-aACmdFEFwv2taHXo2WJHinsRU-K6SY65UjaYm8dsdbtkLlEkFw5dd2kM4h-Shnq2RSMWbNOBbQuXgoDxr--VVF1XhdPdbVLIPlZuFjVBHDa1t22viWhK0XfPiejQW-OOeMCJki5g-PjIWiJzqL7Akulyi5gD4o",
-  first_name: "Mentor",
-  last_name: "Name",
-  price: 90,
-  rating: 4.8,
-  bio: "This mentor profile template will show the mentor bio, skills, rating, price, availability, and booking actions once the backend data is connected.",
-  num_reviews: 0,
-  skills: ["Expertise", "Mentorship", "Career Growth"],
-  experience: 12,
-  languages: ["English", "German", "Russian"],
+  mentor?: Partial<MentorProfile>;
 };
 
 const mockSlotHours = [9, 10, 11, 14, 15, 16];
@@ -60,12 +45,7 @@ export const MentorProfileView = () => {
   const { mentorId } = useParams();
   const location = useLocation();
   const routeMentor = (location.state as MentorProfileState | null)?.mentor;
-  const mentor: MentorPreview = {
-    ...fallbackMentor,
-    ...routeMentor,
-    skills: routeMentor?.skills ?? fallbackMentor.skills,
-    languages: routeMentor?.languages ?? fallbackMentor.languages,
-  };
+  const mentor = (routeMentor ?? {}) as MentorProfile;
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<AvailableSlot | null>(null);
   const slots = getMockAvailableSlots(selectedDate);
@@ -86,7 +66,7 @@ export const MentorProfileView = () => {
         </div>
         <div className="mentor-profile__sidebar">
           <MentorBookingCard
-            price={mentor.price}
+            price={mentor.hourlyRate}
             selectedDate={selectedDate}
             selectedSlot={selectedSlot}
             slots={slots}
@@ -99,7 +79,7 @@ export const MentorProfileView = () => {
           />
         </div>
       </div>
-      <Reviews />
+      <Reviews mentorId={mentor.mentorProfileId} />
     </main>
   );
 };
